@@ -3,8 +3,12 @@
 }
 
 .top-row {
+   
+    
     height: 3.5rem;
     background-color: rgba(0,0,0,0.4);
+    margin:1rem;
+    
 }
 
 .navbar-brand {
@@ -19,8 +23,11 @@
 }
 
 .nav-item {
+    display: flex;
     font-size: 0.9rem;
     padding-bottom: 0.5rem;
+    align-items: center;
+    align-content: center;
 }
 
     .nav-item:first-of-type {
@@ -58,5 +65,10 @@
     .collapse {
         /* Never collapse the sidebar for wide screens */
         display: block;
+
+    }
+    .nav-column {
+        
+        flex-direction: column;
     }
 }
