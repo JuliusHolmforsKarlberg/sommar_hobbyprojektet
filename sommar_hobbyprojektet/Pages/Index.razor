@@ -1,15 +1,16 @@
-﻿@page "/"
+﻿@inject TodoService TodoService
+@page "/"
+
 
 <h1>What Should I Do Today 🤔</h1>
-
 <ul>
-    @foreach (var todo in todos)
+    @foreach (var todo in TodoService.Todos)
     {
         <li class="card m-2 p-2 bg-primary-subtle">
             
            <dev class="">
                 @todo.Text <br>
-                <span>Due: @todo.DueDate.ToString("g")</span>
+                <span>Due: @todo.TodoDate.ToString("g")</span>
                 <input type="checkbox" @bind="todo.IsDone" />
                 <button class="bg-danger-subtle border-danger" @onclick="(() => RemoveTodo(todo))">Remove</button>
                 
@@ -17,25 +18,10 @@
         </li>
     }
 </ul>
-@code {
-    private List<Todo> todos = new List<Todo>();
 
-    protected override void OnInitialized()
+@code {  
+    private void RemoveTodo (MyTodo todo)
     {
-        todos.Add(new Todo { Text = "Learn Blazor", DueDate = DateTime.Now.AddDays(2) });
-        todos.Add(new Todo { Text = "Learn .NET MAUI apps", DueDate = DateTime.Now.AddDays(3) });
-        todos.Add(new Todo { Text = "Build .NET MAUI apps", DueDate = DateTime.Now.AddDays(4) });
-    }
-
-    private void RemoveTodo (Todo todo)
-    {
-        todos.Remove(todo);
-    }
-
-    public class Todo
-    {
-        public string Text { get; set; }
-        public DateTime DueDate { get; set; }
-        public bool IsDone { get; set; }
-    }
+        TodoService.Todos.Remove(todo);
+    }  
 }

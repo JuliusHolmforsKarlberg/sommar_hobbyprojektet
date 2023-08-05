@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using sommar_hobbyprojektet.Data;
+using sommar_hobbyprojektet.Services;
 
 namespace sommar_hobbyprojektet;
 
@@ -23,6 +24,7 @@ public static class MauiProgram
 #endif
 
 		builder.Services.AddSingleton<WeatherForecastService>();
+		builder.Services.AddSingleton<TodoService>();
 
 		return builder.Build();
 	}
