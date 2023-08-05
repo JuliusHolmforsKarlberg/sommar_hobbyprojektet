@@ -1,0 +1,65 @@
+﻿@page "/create"
+
+
+<div>
+    <h2>Add New Todo</h2>
+    <input type="text" @bind="newTodoText" placeholder="Todo text" />
+    <input type="date" @bind="newTodoDueDate" />
+    <button class="btn btn-primary" @onclick="AddTodo">Add</button>
+    <button class="btn btn-secondary" @onclick="HidePopup">Cancel</button>
+</div>
+
+<ul>
+    @foreach (var todo in todos)
+    {
+        <li class="card m-2 p-2 bg-primary-subtle">
+            <div class="">
+                @todo.Text <br>
+                <span>Due: @todo.DueDate.ToString("g")</span>
+                <input type="checkbox" @bind="todo.IsDone" />
+                <button class="bg-danger-subtle border-danger" @onclick="(() => RemoveTodo(todo))">Remove</button>
+            </div>
+        </li>
+    }
+</ul>
+
+@code {
+    private List<Todo> todos = new List<Todo>();
+    private bool showPopup = false;
+    private string newTodoText = "";
+    private DateTime newTodoDueDate = DateTime.Now;
+
+
+    private void RemoveTodo (Todo todo)
+    {
+        todos.Remove(todo);
+    }
+
+    private void ShowPopup()
+    {
+        showPopup = true;
+    }
+
+    private void HidePopup()
+    {
+        showPopup = false;
+    }
+
+    private void AddTodo()
+    {
+        if (!string.IsNullOrWhiteSpace(newTodoText))
+        {
+            todos.Add(new Todo { Text = newTodoText, DueDate = newTodoDueDate });
+            newTodoText = "";
+            newTodoDueDate = DateTime.Now;
+            HidePopup();
+        }
+    }
+
+    public class Todo
+    {
+        public string Text { get; set; }
+        public DateTime DueDate { get; set; }
+        public bool IsDone { get; set; }
+    }
+}
