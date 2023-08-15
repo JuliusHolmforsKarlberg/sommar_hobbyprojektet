@@ -22,9 +22,10 @@ public static class MauiProgram
 		builder.Services.AddBlazorWebViewDeveloperTools();
 		builder.Logging.AddDebug();
 #endif
-
-		builder.Services.AddSingleton<WeatherForecastService>();
-		builder.Services.AddSingleton<TodoService>();
+        // statements for adding TodoService as a singleton
+        string dbPath = FileAccessHelper.GetLocalFilePath("people.db3");
+        builder.Services.AddSingleton<TodoService>(s => ActivatorUtilities.CreateInstance<TodoService>(s, dbPath));        
+		
 
 		return builder.Build();
 	}
