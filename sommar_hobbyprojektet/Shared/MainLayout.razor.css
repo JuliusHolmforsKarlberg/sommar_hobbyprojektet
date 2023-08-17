@@ -37,22 +37,25 @@ main {
     }
 
 @media (max-width: 640.98px) {
-    .top-row:not(.auth) {
-        display: none;
+    .page {
+        flex-direction: column-reverse;
     }
 
-    .top-row.auth {
-        justify-content: space-between;
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: fixed; /* Ändra till "fixed" för att fastna längst ner */
+        bottom: 0; /* Placera längst ner */
     }
 
-    .top-row ::deep a, .top-row ::deep .btn-link {
-        margin-left: 0;
+    .top-row {
+        display: none; /* Dölj .top-row i mobilversion */
     }
 }
 
 @media (min-width: 641px) {
     .page {
-        flex-direction: row;
+        flex-direction: row; /* Återgå till radlayout i PC-versionen */
     }
 
     .sidebar {
