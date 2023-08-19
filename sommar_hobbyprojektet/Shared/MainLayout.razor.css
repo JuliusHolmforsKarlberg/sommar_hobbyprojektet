@@ -1,3 +1,4 @@
+
 .page {
     position: relative;
     display: flex;
@@ -8,9 +9,11 @@ main {
     flex: 1;
 }
 
+
 .sidebar {
     background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #C7D2E2 70%);
 }
+
 
 .top-row {
     background-color: #C7D2E2;
@@ -21,20 +24,23 @@ main {
     align-items: center;
 }
 
-    .top-row ::deep a, .top-row ::deep .btn-link {
+    .top-row a,
+    .top-row .btn-link {
         white-space: nowrap;
         margin-left: 1.5rem;
         text-decoration: none;
     }
 
-    .top-row ::deep a:hover, .top-row ::deep .btn-link:hover {
-        text-decoration: underline;
-    }
+        .top-row a:hover,
+        .top-row .btn-link:hover {
+            text-decoration: underline;
+        }
 
-    .top-row ::deep a:first-child {
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+        .top-row a:first-child {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
 
 @media (max-width: 640.98px) {
     .page {
@@ -44,18 +50,19 @@ main {
     .sidebar {
         width: 100%;
         height: auto;
-        position: fixed; /* Ändra till "fixed" för att fastna längst ner */
-        bottom: 0; /* Placera längst ner */
+        position: fixed;
+        bottom: 0;
     }
 
     .top-row {
-        display: none; /* Dölj .top-row i mobilversion */
+        display: none;
     }
 }
 
+
 @media (min-width: 641px) {
     .page {
-        flex-direction: row; /* Återgå till radlayout i PC-versionen */
+        flex-direction: row;
     }
 
     .sidebar {
@@ -71,7 +78,8 @@ main {
         z-index: 1;
     }
 
-    .top-row, article {
+    .top-row,
+    article {
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
     }
