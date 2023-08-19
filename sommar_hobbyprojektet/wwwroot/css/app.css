@@ -1,7 +1,7 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: Inter;
 }
 
 h1:focus {
@@ -9,13 +9,13 @@ h1:focus {
 }
 
 a, .btn-link {
-    color: #0071c1;
+    color: #4979D1;
 }
 
 .btn-primary {
     color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    background-color: #4979D1;
+    border-color: #4979D1;
 }
 
 .content {
@@ -23,7 +23,7 @@ a, .btn-link {
 }
 
 .valid.modified:not([type=checkbox]) {
-    outline: 1px solid #26b050;
+    outline: 1px solid #4979D1;
 }
 
 .invalid {
@@ -73,7 +73,7 @@ a, .btn-link {
         position: sticky;
         top: 0;
         height: env(safe-area-inset-top);
-        background-color: #f7f7f7;
+        background-color: #C7D2E2;
         width: 100%;
         z-index: 1;
     }
