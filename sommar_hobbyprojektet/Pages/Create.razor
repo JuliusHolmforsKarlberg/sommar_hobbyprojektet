@@ -4,59 +4,64 @@
 
 
 <div>
+    
     <h2>Add New Todo</h2>
-    <input type="text" @bind="newTodoText" placeholder="Todo text" />
+    <input type="text" @bind="newTitle" placeholder="Todo text" />
     <input type="datetime-local" @bind="newTodoDueDate" />
     <button class="btn btn-primary" @onclick="AddTodo">Add</button>
-    <button class="btn btn-secondary" @onclick="HidePopup">Cancel</button>
+   
 </div>
 
-<ul>
-    @foreach (var todo in TodoService.Todos)
-    {
-        <li class="card m-2 p-2 bg-primary-subtle">
-            <div class="">
-                @todo.Text <br>
-                <span>Due: @todo.TodoDate.ToString("g")</span>
-                <input type="checkbox" @bind="todo.IsDone" />
-                <button class="bg-danger-subtle border-danger" @onclick="(() => RemoveTodo(todo))">Remove</button>
-            </div>
-        </li>
-    }
-</ul>
+<div>
+    <h3>@statusMessage</h3>
+    <h3>@statusMessageEmpty</h3>    
+</div>
 
 @code {
-   
-    private bool showPopup = false;
-    private string newTodoText = "";
+
+    
+    private string newTitle;
     private DateTime newTodoDueDate = DateTime.Now;
+    private string statusMessage="";
+    private string statusMessageEmpty="";
+    private System.Timers.Timer clearMessageTimer;
+    
 
-
-    private void RemoveTodo (MyTodo todo)
-    {
-        TodoService.Todos.Remove(todo);
-    }
-
-    private void ShowPopup()
-    {
-        showPopup = true;
-    }
-
-    private void HidePopup()
-    {
-        showPopup = false;
-    }
+    
 
     private void AddTodo()
     {
-        if (!string.IsNullOrWhiteSpace(newTodoText))
+        if (string.IsNullOrWhiteSpace(newTitle))
         {
-            TodoService.Todos.Add(new MyTodo { Text = newTodoText, TodoDate = newTodoDueDate });
-            newTodoText = "";
-            newTodoDueDate = DateTime.Now;
-            HidePopup();
+            statusMessageEmpty = "Please enter a todo";           
+
+           
         }
+        if (!string.IsNullOrWhiteSpace(newTitle))
+        {
+            var newTodo = new MyTodo
+                {
+                    Title = newTitle,
+
+                    TodoDate = newTodoDueDate
+                };
+            TodoService.AddNewTodo(newTitle, newTodoDueDate);
+            newTitle = "";
+            newTodoDueDate = DateTime.Now;
+        }
+
+        statusMessage = TodoService.StatusMessage;
+
+        clearMessageTimer = new System.Timers.Timer(3000) { AutoReset = true };
+        clearMessageTimer.Elapsed += (sender, e) =>
+        {
+            statusMessageEmpty = "";
+            TodoService.StatusMessage = "";
+            StateHasChanged();
+        };
+        clearMessageTimer.Start();
     }
 
- 
+   
+
 }

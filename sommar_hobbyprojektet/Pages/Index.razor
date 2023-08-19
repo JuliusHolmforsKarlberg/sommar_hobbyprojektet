@@ -4,15 +4,16 @@
 
 <h1>What Should I Do Today 🤔</h1>
 <ul>
-    @foreach (var todo in TodoService.Todos)
+    @foreach (var todo in TodoService.GetAllTodos())
     {
         <li class="card m-2 p-2 bg-primary-subtle">
             
            <dev class="">
-                @todo.Text <br>
+                @todo.Title <br>
                 <span>Due: @todo.TodoDate.ToString("g")</span>
-                <input type="checkbox" @bind="todo.IsDone" />
-                <button class="bg-danger-subtle border-danger" @onclick="(() => RemoveTodo(todo))">Remove</button>
+                <input type="checkbox" @bind="todo.IsDone" @bind:event="oninput" @onchange="(() => UpdateTodoStatus(todo))" />
+
+                <button class="bg-danger-subtle border-danger" @onclick="(() => RemoveTodo(todo.Id))">Remove</button>
                 
            </dev>
         </li>
@@ -20,8 +21,15 @@
 </ul>
 
 @code {  
-    private void RemoveTodo (MyTodo todo)
+    private void RemoveTodo(int todoId)
     {
-        TodoService.Todos.Remove(todo);
+        TodoService.DeleteTodo(todoId);
     }  
+
+    private void UpdateTodoStatus(MyTodo todo)
+    {
+        TodoService.UpdateIsDoneStatus(todo.Id, todo.IsDone);
+    }
+
+
 }
